@@ -1,0 +1,4 @@
+[
+{"title":"Lobby","isOfficial":true,"autojoin":true,"toursEnabled":true,"auth":{},"introMessage":"Welcome to the PokeBattle Omega Ruby and Alpha Sapphire test server! Register here: <a href=\"http://elloworld.noip.me/forums/entry/register?Target=discussions\">http://elloworld.noip.me/forums/entry/register?Target=discussions</a>","modchat":false},
+{"title":"Staff","isPrivate":true,"staffRoom":true,"staffAutojoin":true}
+]
