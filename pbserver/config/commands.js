@@ -612,57 +612,71 @@ var commands = exports.commands = {
 		var targets = target.split(',');
 		var totalPBV = 0;
 		
-		for (var i in targets) {
-			var isNotSearch = false;
-			var target = targets[i].trim().toLowerCase();
-			if (target.slice(0, 1) === '!') {
-				isNotSearch = true;
-				target = target.slice(1);
-			}
+		if (isNaN(target)) {
+			for (var i in targets) {
+				var isNotSearch = false;
+				var target = targets[i].trim().toLowerCase();
+				if (target.slice(0, 1) === '!') {
+					isNotSearch = true;
+					target = target.slice(1);
+				}
 		 
-			var targetId = toId(target);
-			if (targetId === '' + parseInt(targetId)) {
-				for (var p in Tools.data.Pokedex) {
-					var pokemon = Tools.getTemplate(p);
-					if (pokemon.num === parseInt(target)) {
-						target = pokemon.species;
-						targetId = pokemon.id;			  
-						break;
-					}
+				var targetId = toId(target);
+				if (targetId === '' + parseInt(targetId)) {
+					for (var p in Tools.data.Pokedex) {
+						var pokemon = Tools.getTemplate(p);
+						if (pokemon.num === parseInt(target)) {
+							target = pokemon.species;
+							targetId = pokemon.id;			  
+							break;
+						}
 					
-					buffer += '|c|~|/data-' + newTargets[i].searchType + ' ' + newTargets[i].name + '\n';
-				}
-			}
-
-			var newTargets = Tools.dataSearch(target);
-			if (newTargets && newTargets.length) {
-				for (var i = 0; i < newTargets.length; ++i) {
-					if (newTargets[i].id !== targetId && !Tools.data.Aliases[targetId] && !i) {
-						buffer = "No Pokemon named '" + target + "' was found. Showing the data of '" + newTargets[0].name + "' instead.\n";
+						buffer += '|c|~|/data-' + newTargets[i].searchType + ' ' + newTargets[i].name + '\n';
 					}
 				}
-			} 
-			else {
-				return this.sendReply("No Pokemon, item, move, ability or nature named '" + target[i] + "' was found. (Check your spelling?)");
-			}
 
-			var details;
-			var pokemon = Tools.getTemplate(newTargets[0].name);
-			details = {
-				"Pokemon": pokemon.species,
-				"PBV": pokemon.pokebattlevalue
-			};
+				var newTargets = Tools.dataSearch(target);
+				if (newTargets && newTargets.length) {
+					for (var i = 0; i < newTargets.length; ++i) {
+						if (newTargets[i].id !== targetId && !Tools.data.Aliases[targetId] && !i) {
+							buffer = "No Pokemon named '" + target + "' was found. Showing the data of '" + newTargets[0].name + "' instead.\n";
+						}
+					}
+				} 
+				else {
+					return this.sendReply("No Pokemon named'" + target[i] + "' was found. (Check your spelling?)");
+				}
+
+				var details;
+				var pokemon = Tools.getTemplate(newTargets[0].name);
+				details = {
+					"Pokemon": pokemon.species,
+					"PBV": pokemon.pokebattlevalue
+				};
 			
-			totalPBV += pokemon.pokebattlevalue;
+				totalPBV += pokemon.pokebattlevalue;
 
-			buffer += '|raw|<font size="1">' + Object.keys(details).map(function (detail) {
-				return '<font color=#585858>' + detail + (details[detail] !== '' ? ':</font> ' + details[detail] : '</font>');
-			}).join("&nbsp;|&ThickSpace;") + '</font>\n';
-		}
+				buffer += '|raw|<font size="1">' + Object.keys(details).map(function (detail) {
+					return '<font color=#585858>' + detail + (details[detail] !== '' ? ':</font> ' + details[detail] : '</font>');
+				}).join("&nbsp;|&ThickSpace;") + '</font>\n';
+			}
 		
-		buffer += '|raw|<font size="1"><font color=#585858>PBV Total:</font> ' + totalPBV + '</font></font>';
+			buffer += '|raw|<font size="1"><font color=#585858>PBV Total:</font> ' + totalPBV + '</font></font>';
 
-		this.sendReply(buffer);
+			this.sendReply(buffer);
+		}
+		else if (!isNaN(target)) {
+			var pbvInput = target;
+			if (pbvInput % 5 == 0){
+				this.sendReplyBox("Pokemon with <a href=\"https://www.pokebattle.com/dex/pokemon/?pbv=<" + pbvInput + "\">" + pbvInput + " or less</a>, brought to you by <a href=\"https://www.pokebattle.com/dex/\">PokeBattle's Pokedex.</a>");
+			}
+			else {
+				this.sendReply("Please enter a PBV that is a multiple of 5 and is not a decimal.")
+			}
+		}
+		else {
+			this.sendReply("Error, please enter a valid  PBV or Pokemon to search for.")
+		}
 	},
 
 	learnset: 'learn',
