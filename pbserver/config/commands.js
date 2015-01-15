@@ -1287,7 +1287,7 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 
 		var targets = target.split(',');
-		if (toId(targets[0]) === 'previews') return this.sendReplyBox("<a href=\"https://www.pokebattle.com/pokedex/\">Generation 6 Analyses Index</a>, brought to you by <a href=\"https://www.pokebattle.com\">PokeBattle.</a>");
+		if (toId(targets[0]) === 'previews') return this.sendReplyBox("<a href=\"https://www.pokebattle.com/dex/\">Generation 6 Analyses Index</a>, brought to you by <a href=\"https://www.pokebattle.com\">PokeBattle.</a>");
 		var pokemon = Tools.getTemplate(targets[0]);
 		var item = Tools.getItem(targets[0]);
 		var move = Tools.getMove(targets[0]);
@@ -1298,11 +1298,11 @@ var commands = exports.commands = {
 		// Pokemon
 		if (pokemon.exists) {
 			atLeastOne = true;
-			var illegalStartNums = {'351':1, '421':1, '487':1, '493':1, '555':1, '647':1, '648':1, '649':1, '681':1};
-			if (pokemon.isMega || pokemon.num in illegalStartNums) pokemon = Tools.getTemplate(pokemon.baseSpecies);
+			if (pokemon.isMega) {
+				pokemon = Tools.getTemplate(pokemon.baseSpecies);
+				}
 			var poke = pokemon.name.toLowerCase().replace(/\ /g, '_').replace(/[^a-z0-9\-\_]+/g, '');
-
-			this.sendReplyBox("<a href=\"https://www.pokebattle.com/dex/pokemon/" + poke + "\">" + generation.toUpperCase() + " " + pokemon.name + " analysis</a>, brought to you by <a href=\"https://www.pokebattle.com\">PokeBattle.</a>");
+			this.sendReplyBox("<a href=\"https://www.pokebattle.com/dex/pokemon/" + poke + "\">" + pokemon.name + " analysis</a>, brought to you by <a href=\"https://www.pokebattle.com\">PokeBattle.</a>");
 		}
 
 		// Item
