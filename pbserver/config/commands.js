@@ -606,7 +606,7 @@ var commands = exports.commands = {
 	pokebattlevalue: 'pbv',
 	pbv: function (target, room, user, connection, cmd) {
 		if (!this.canBroadcast()) return;
-		if (!target) return this.parse('/help dexsearch');
+		if (!target) return this.parse('/help pbv');
 		
 		var buffer = '';
 		var targets = target.split(',');
@@ -1472,9 +1472,9 @@ var commands = exports.commands = {
 			this.sendReply("/data [pokemon/item/move/ability] - Get details on this pokemon/item/move/ability/nature.");
 			this.sendReply("!data [pokemon/item/move/ability] - Show everyone these details. Requires: + % @ & ~");
 		}
-		if (target === 'data') {
+		if (target === 'pbv' || target === 'pokebattlevalue') {
 			matched = true;
-			this.sendReply("/pbv [pokemon/] - Get PokeBattle Value for the pokémon.");
+			this.sendReply("/pbv [pokemon/] - Get PokeBattle Value for a pokémon, or search for pokémon of a certain PBV (or less).");
 			this.sendReply("!pbv [pokemon] - Show everyone these details. Requires: + % @ & ~");
 		}
 		if (target === 'details' || target === 'dt') {
@@ -1484,7 +1484,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'analysis') {
 			matched = true;
-			this.sendReply("/analysis [pokemon], [generation] - Links to the Smogon University analysis for this Pokemon in the given generation.");
+			this.sendReply("/analysis [pokemon], [generation] - Links to the PokeBattle analysis for this Pokemon.");
 			this.sendReply("!analysis [pokemon], [generation] - Shows everyone this link. Requires: + % @ & ~");
 		}
 		if (target === 'groups') {
