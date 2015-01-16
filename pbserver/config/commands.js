@@ -958,28 +958,6 @@ var commands = exports.commands = {
 		);
 	},
 
-	cap: function (target, room, user) {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox(
-			"An introduction to the Create-A-Pokemon project:<br />" +
-			"- <a href=\"https://www.smogon.com/cap/\">CAP project website and description</a><br />" +
-			"- <a href=\"https://www.smogon.com/forums/showthread.php?t=48782\">What Pokemon have been made?</a><br />" +
-			"- <a href=\"https://www.smogon.com/forums/forums/311\">Talk about the metagame here</a><br />" +
-			"- <a href=\"https://www.smogon.com/forums/threads/3512318/#post-5594694\">Sample XY CAP teams</a>"
-		);
-	},
-
-	gennext: function (target, room, user) {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox(
-			"NEXT (also called Gen-NEXT) is a mod that makes changes to the game:<br />" +
-			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown/blob/master/mods/gennext/README.md\">README: overview of NEXT</a><br />" +
-			"Example replays:<br />" +
-			"- <a href=\"https://replay.pokemonshowdown.com/gennextou-120689854\">Zergo vs Mr Weegle Snarf</a><br />" +
-			"- <a href=\"https://replay.pokemonshowdown.com/gennextou-130756055\">NickMP vs Khalogie</a>"
-		);
-	},
-
 	om: 'othermetas',
 	othermetas: function (target, room, user) {
 		if (!this.canBroadcast()) return;
