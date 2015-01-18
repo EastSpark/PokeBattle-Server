@@ -604,7 +604,6 @@ var commands = exports.commands = {
 	},
 	
 	pokebattlevalue: 'pbv',
-	value: 'pbv',
 	pbv: function (target, room, user, connection, cmd) {
 		if (!this.canBroadcast()) return;
 		if (!target) return this.parse('/help pbv');
@@ -1253,6 +1252,17 @@ var commands = exports.commands = {
 		// secret sysop command
 		room.add(target);
 	},
+	
+	brobro: function (target, room, user) {
+		if (room.id !== 'lobby') if (!this.canBroadcast()) return;
+		this.sendReplyBox('<center><img src="http://26.media.tumblr.com/tumblr_lzmbam385J1qczibyo1_r1_500.gif" width="140">' +
+			'<img src="http://i.imgur.com/rrnCu7w.png">' +
+			'<img src="http://24.media.tumblr.com/tumblr_lmfbi3vkev1qd87hlo1_500.gif" width="150"><br />' +
+			'<b>Ace:</b> Regenerator<br />' +
+			'DUR DUR DUR.</center>'
+		);
+	},
+	
 
 	/*********************************************************
 	 * Help commands
