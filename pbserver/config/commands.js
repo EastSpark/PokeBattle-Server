@@ -604,6 +604,7 @@ var commands = exports.commands = {
 	},
 	
 	pokebattlevalue: 'pbv',
+	value: 'pbv',
 	pbv: function (target, room, user, connection, cmd) {
 		if (!this.canBroadcast()) return;
 		if (!target) return this.parse('/help pbv');
