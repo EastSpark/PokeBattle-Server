@@ -1091,12 +1091,10 @@ var commands = exports.commands = {
 		target = toId(target);
 		var buffer = "";
 		var matched = false;
-		}
 		if (target === '1000' || target === '500' || target === 'all') {
 			matched = true;
 			buffer += "- <a href=\"https://forum.pokebattle.com/t/pbv-changes-for-season-2/10881\">np: PB Season 2</a><br />";
 			buffer += "- <a href=\"https://www.pokebattle.com/dex/pokemon/\">In-Depth PBV Search</a><br />";
-		}
 		}
 		if (!matched) {
 			return this.sendReply("The Tiers entry '" + target + "' was not found. Try /tiers for general help.");
