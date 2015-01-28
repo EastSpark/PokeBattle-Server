@@ -8,57 +8,17 @@ exports.BattleFormats = {
 
 	standard: {
 		effectType: 'Banlist',
-		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod'],
+		ruleset: ['Sleep Clause Mod', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod'],
 		banlist: ['Unreleased', 'Illegal', 'Huntail + Shell Smash + Sucker Punch', 'Leavanny + Knock Off + Sticky Web', 'Sylveon + Hyper Voice + Heal Bell + Wish + Baton Pass']
-	},
-	standardnext: {
-		effectType: 'Banlist',
-		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'HP Percentage Mod'],
-		banlist: ['Illegal', 'Soul Dew', 'Huntail + Shell Smash + Sucker Punch', 'Leavanny + Knock Off + Sticky Web', 'Sylveon + Hyper Voice + Heal Bell + Wish + Baton Pass']
 	},
 	standardubers: {
 		effectType: 'Banlist',
-		ruleset: ['Sleep Clause Mod', 'Species Clause', 'Moody Clause', 'OHKO Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Evasion Moves Clause'],
+		ruleset: ['Sleep Clause Mod', 'Species Clause', 'Moody Clause', 'Nickname Clause', 'OHKO Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Evasion Moves Clause'],
 		banlist: ['Unreleased', 'Illegal', 'Huntail + Shell Smash + Sucker Punch', 'Leavanny + Knock Off + Sticky Web', 'Sylveon + Hyper Voice + Heal Bell + Wish + Baton Pass']
-	},
-	standardgbu: {
-		effectType: 'Banlist',
-		ruleset: ['Species Clause', 'Item Clause'],
-		banlist: ['Unreleased', 'Illegal', 'Soul Dew', 'Huntail + Shell Smash + Sucker Punch', 'Leavanny + Knock Off + Sticky Web', 'Sylveon + Hyper Voice + Heal Bell + Wish + Baton Pass',
-			'Mewtwo',
-			'Mew',
-			'Lugia',
-			'Ho-Oh',
-			'Celebi',
-			'Kyogre',
-			'Groudon',
-			'Rayquaza',
-			'Jirachi',
-			'Deoxys', 'Deoxys-Attack', 'Deoxys-Defense', 'Deoxys-Speed',
-			'Dialga',
-			'Palkia',
-			'Giratina', 'Giratina-Origin',
-			'Phione',
-			'Manaphy',
-			'Darkrai',
-			'Shaymin', 'Shaymin-Sky',
-			'Arceus',
-			'Victini',
-			'Reshiram',
-			'Zekrom',
-			'Kyurem', 'Kyurem-Black', 'Kyurem-White',
-			'Keldeo',
-			'Meloetta',
-			'Genesect',
-			'Xerneas',
-			'Yveltal',
-			'Zygarde',
-			'Diancie'
-		]
 	},
 	standarddoubles: {
 		effectType: 'Banlist',
-		ruleset: ['Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Abilities Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod'],
+		ruleset: ['Species Clause', 'Nickname Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Abilities Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod'],
 		banlist: ['Unreleased', 'Illegal', 'Huntail + Shell Smash + Sucker Punch', 'Leavanny + Knock Off + Sticky Web', 'Sylveon + Hyper Voice + Heal Bell + Wish + Baton Pass']
 	},
 	pokemon: {
@@ -234,12 +194,6 @@ exports.BattleFormats = {
 			return problems;
 		}
 	},
-	cappokemon: {
-		effectType: 'Rule',
-		validateSet: function (set, format) {
-			return this.getEffect('Pokemon').validateSet.call(this, set, format, true);
-		}
-	},
 	kalospokedex: {
 		effectType: 'Rule',
 		validateSet: function (set) {
@@ -319,6 +273,7 @@ exports.BattleFormats = {
 			this.makeRequest('teampreview', 3);
 		}
 	},
+         //will be changed to new tier once PBV is established
 	littlecup: {
 		effectType: 'Rule',
 		validateSet: function (set) {
@@ -345,6 +300,22 @@ exports.BattleFormats = {
 				}
 				speciesTable[template.num] = true;
 			}
+		}
+	},
+	nicknameclause: {
+		effectType: 'Rule',
+		validateTeam: function (team, format) {
+			var nameTable = {};
+			for (var i = 0; i < team.length; i++) {
+				var name = team[i].name;
+				if (name === team[i].species) continue;
+				if (nameTable[name]) {
+					return ["Your Pokémon must have different nicknames.",  "(You have more than one " + name + ")"];
+				}
+				nameTable[name] = true;
+			}
+			// Illegality of impersonation of other species is
+			// hardcoded in team-validator.js, so we are done.
 		}
 	},
 	itemclause: {
